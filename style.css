@@ -86,8 +86,14 @@ input {
     display: flex;
 
 }
+#library{
+	display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
 
 #noResult{
+	display: none;
     text-align: center;
     margin-top: 10%;
     font-size: 200%;

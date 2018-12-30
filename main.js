@@ -1,5 +1,9 @@
- var library;
-$('#noResult').hide();
+//Refactoring to ES6
+
+var library;
+//$('#noResult').hide();
+
+
  $(document).ready(function () {
      
      var tittle;

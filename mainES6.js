@@ -12,47 +12,30 @@ getData(url)
 		books = response.books;
 		createFlippers(books);
 		hideElement(loader);
-	
-	var qsRegex;
 
-         // init Isotope
-         var $grid = $("#library").isotope({
-             itemSelector: '.flip-container',
-             layoutMode: 'fitRows',
-             filter: function () {
-                 return qsRegex ? $(this).text().match(qsRegex) : true;
+		var qsRegex;
+
+		// init Isotope
+		var $grid = $("#library").isotope({
+			itemSelector: '.flip-container',
+			layoutMode: 'fitRows',
+			filter: function () {
+				return qsRegex ? $(this).text().match(qsRegex) : true;
+			}
+		});
 
 
-             }
-         });
+		// use value of search field to filter
+		var $quicksearch = $('.quicksearch').keyup(debounce(function () {
+			qsRegex = new RegExp($quicksearch.val(), 'gi');
+			$grid.isotope();
 
-         // use value of search field to filter
-         var $quicksearch = $('.quicksearch').keyup(debounce(function () {
-             qsRegex = new RegExp($quicksearch.val(), 'gi');
-             $grid.isotope();
-
-             if (!$grid.data('isotope').filteredItems.length) {
-                 $('#noResult').show();
-             } else {
-                 $('#noResult').hide();
-             }
-         }, 200));
-
-         // debounce so filtering doesn't happen every millisecond
-         function debounce(fn, threshold) {
-             var timeout;
-             return function debounced() {
-                 if (timeout) {
-                     clearTimeout(timeout);
-                 }
-
-                 function delayed() {
-                     fn();
-                     timeout = null;
-                 }
-                 timeout = setTimeout(delayed, threshold || 100);
-             }
-         }
+			if (!$grid.data('isotope').filteredItems.length) {
+				$('#noResult').show();
+			} else {
+				$('#noResult').hide();
+			}
+		}, 200));
 
 	})
 	.catch(error => console.error(error))
@@ -69,8 +52,13 @@ function createFlippers(arr) {
 
 const templateFilpperBook = book => {
 	//assigment destructuring
-	let {portada,titulo,descripcion} = book;
-	
+	let {
+		portada,
+		titulo,
+		descripcion,
+		detalle
+	} = book;
+
 	let flipperContainer = document.createElement("div");
 	flipperContainer.setAttribute("class", "flip-container");
 
@@ -84,10 +72,14 @@ const templateFilpperBook = book => {
 		`<img src=${portada} class="img-repsonsive" />`
 	let back = document.createElement("div");
 	back.setAttribute("class", "back");
+	let button= document.createElement("button");
+ 	button.setAttribute("class","btn");
+	button.innerHTML= `<a href=${detalle} data-fancybox data-caption>More info </a>`
 	back.innerHTML =
 		`<h3>${titulo}</h3>
-			<p>${descripcion}</p>
-			<button class="btn">More info</button>`
+			<p>${descripcion}</p>`
+ 	
+	back.appendChild(button);
 	flipperContainer.appendChild(divFlipper);
 	divFlipper.appendChild(front);
 	divFlipper.appendChild(back);
@@ -96,4 +88,18 @@ const templateFilpperBook = book => {
 
 
 
- 
+// debounce so filtering doesn't happen every millisecond
+function debounce(fn, threshold) {
+	var timeout;
+	return function debounced() {
+		if (timeout) {
+			clearTimeout(timeout);
+		}
+
+		function delayed() {
+			fn();
+			timeout = null;
+		}
+		timeout = setTimeout(delayed, threshold || 100);
+	}
+}
