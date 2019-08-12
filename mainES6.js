@@ -74,6 +74,7 @@ const templateFilpperBook = book => {
 	back.setAttribute("class", "back");
 	let button= document.createElement("button");
  	button.setAttribute("class","btn");
+	button.setAttribute("data-button","more");
 	button.innerHTML= `<a href=${detalle} data-fancybox data-caption>More info </a>`
 	back.innerHTML =
 		`<h3>${titulo}</h3>
