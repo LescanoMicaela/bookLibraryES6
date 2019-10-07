@@ -76,7 +76,7 @@ const templateFilpperBook = book => {
 	let button= document.createElement("button");
  	button.setAttribute("class","btn");
 	button.setAttribute("data-button","more");
-	button.innerHTML= `<a href=${detalle} data-fancybox data-caption onClick="ga('send', 'event', 'Email' 'lick to Email' 'xample@mail.com';"More info </a>`
+	button.innerHTML= `<a href=${detalle} data-fancybox data-caption onClick="ga('send', 'event', 'Email' 'lick to Email' 'xample@mail.com');" >More info </a>`
 	back.innerHTML =
 		`<h3>${titulo}</h3>
 			<p>${descripcion}</p>`
