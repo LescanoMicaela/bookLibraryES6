@@ -43,8 +43,9 @@ getData(url)
 const hideElement = el => el.style.display = "none";
 
 function createFlippers(arr) {
-	ga('send', 'event', 'create', 'divCreation', 'label', '', '');
-	arr.map((book) => {
+ga('send', 'event', 'Videos', 'play', 'Fall Campaign', {
+  nonInteraction: true
+});	arr.map((book) => {
 		//		console.log(book);
 		templateFilpperBook(book);
 
